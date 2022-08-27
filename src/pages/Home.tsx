@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from "react";
 import IDtable from "../components/IDtable";
 import callApi from "../services/useApi";
+interface todos {
+  userId: number;
+  id: number;
+  title: string;
+  completed: boolean;
+}
 
-type Todos =
-  | {
-      userId: string;
-      id: number;
-      title: string;
-      completed: boolean;
-    }[]
-  | undefined;
 const url: string = "https://jsonplaceholder.typicode.com/todos";
 
 export const Home: React.FC = () => {
-  const [todos, setTodos] = useState<Todos>([]);
+  const [todos, setTodos] = useState<todos[]>([]);
   const [idTable, setIdtable] = useState<boolean>(true);
 
   useEffect(() => {
@@ -22,7 +20,9 @@ export const Home: React.FC = () => {
     });
   }, []);
 
-  function viewByUserId() {}
+  function viewNormal() {
+    setIdtable(false);
+  }
   return (
     <div className="container-fluid p-5">
       <div className="w-25 row p-0">
@@ -33,7 +33,7 @@ export const Home: React.FC = () => {
           <div className="button btn btn-primary">Group by userID</div>
         </div>
       </div>
-      {todos && (idTable ? <IDtable todos={todos} /> : null)}
+      {todos && <IDtable isNormal={!idTable} todos={todos} />}
     </div>
   );
 };
