@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import IDtable from "../components/IDtable";
-import callApi from "../services/useApi";
+import { URL } from "../constant";
+import { callApi } from "../services/useApi";
 interface todos {
   userId: number;
   id: number;
@@ -8,14 +9,12 @@ interface todos {
   completed: boolean;
 }
 
-const url: string = "https://jsonplaceholder.typicode.com/todos";
-
 export const Home: React.FC = () => {
   const [todos, setTodos] = useState<todos[]>([]);
   const [idTable, setIdtable] = useState<boolean>(false);
 
   useEffect(() => {
-    callApi(url).then((data) => {
+    callApi(URL).then((data) => {
       setTodos(data);
     });
   }, []);

@@ -1,3 +1,5 @@
+import { URL } from "../constant";
+
 interface Idata {
   userId: number;
   id: number;
@@ -12,4 +14,7 @@ function callApi(url: string): Promise<Idata[]> {
   // });
 }
 
-export default callApi;
+function callDetail(id: string | undefined): Promise<Idata> {
+  return fetch(URL + id).then((res) => res.json());
+}
+export { callApi, callDetail };
