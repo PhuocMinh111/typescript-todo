@@ -15,12 +15,21 @@ interface Iprops {
 
 const IDtable: React.FC<Iprops> = ({ todos, isNormal }): JSX.Element => {
   return (
-    <table className="table">
-      <thead className="">
-        <th>ID</th>
-        <th>UserId</th>
-        <th colSpan={4}>Title</th>
-        <th>Action</th>
+    <table className="table border mt-3">
+      <thead className="border">
+        {isNormal ? (
+          <>
+            <th>ID</th>
+            <th>UserId</th>
+            <th colSpan={4}>Title</th>
+            <th>Action</th>
+          </>
+        ) : (
+          <>
+            <th>id</th>
+            <th>title</th>
+          </>
+        )}
       </thead>
       <tbody>
         {isNormal
@@ -32,7 +41,7 @@ const IDtable: React.FC<Iprops> = ({ todos, isNormal }): JSX.Element => {
                   <td>{userId}</td>
                   <td colSpan={4}>{title}</td>
                   <td>
-                    <Link to={`/${id}`}>detail</Link>
+                    <Link to={`/detail/${id}`}>detail</Link>
                   </td>
                 </tr>
               );
@@ -40,7 +49,7 @@ const IDtable: React.FC<Iprops> = ({ todos, isNormal }): JSX.Element => {
           : formatList(todos).map((item, index) => {
               return (
                 <tr key={index}>
-                  <td>{item[0].userId}</td>
+                  <td className="">{item[0].userId}</td>
                   <td>
                     <ul className="list-group">
                       {item.map((item, index) => {
@@ -63,4 +72,5 @@ const IDtable: React.FC<Iprops> = ({ todos, isNormal }): JSX.Element => {
     </table>
   );
 };
+
 export default IDtable;
